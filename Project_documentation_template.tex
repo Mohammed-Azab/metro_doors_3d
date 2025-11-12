@@ -1,0 +1,448 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\author{}
+\date{}
+
+\begin{document}
+
+\includegraphics[width=2.01042in,height=0.89415in]{media/image1.png}
+
+\begin{quote}
+\textbf{German International University}
+
+\textbf{Mechatronics Lab (MCTR704)}
+
+\textbf{Berlin winter 2025}
+\end{quote}
+
+\textbf{TYPE YOUR PROJECT NAME}
+
+\begin{quote}
+\textbf{Project No. {[} x {]}}
+
+\textbf{Name:}
+\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots{}
+\textbf{I.D. \#:}\ldots\ldots\ldots. Group: ..\ldots..
+\end{quote}
+
+\hypertarget{table-of-contents}{%
+\section{\texorpdfstring{Table of Contents
+}{Table of Contents }}\label{table-of-contents}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2359}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.6750}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.0890}}@{}}
+\toprule
+\begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+\textbf{Milestone No. / submission date}
+\end{quote}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Content}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+\textbf{Page}
+\end{quote}
+\end{minipage} \\
+\midrule
+\endhead
+\textbf{{[}1{]}} \textbf{08/10/2025} & Project Description
+\textbf{\ldots{}}\ldots.\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots.\ldots\ldots.\ldots\ldots\ldots{}
+& \textbf{3} \\
+\textbf{{[}1{]}} \textbf{08/10/2025} & Solid works Design: 3D mechanical
+design views...\ldots\ldots...\ldots\ldots{} & \\
+\textbf{{[}1{]}} \textbf{08/10/2025} & Mechanical Components List & \\
+\textbf{{[}1{]}} \textbf{08/10/2025} & DFM report & \\
+\textbf{{[}1{]}} \textbf{08/10/2025} & DFA report & \\
+\textbf{{[}1{]}} \textbf{08/10/2025} & Mechanical Components in 2D with
+Dimensions\ldots\ldots.\ldots\ldots\ldots\ldots\ldots{} & \\
+\textbf{{[}1{]}} \textbf{08/10/2025} & Pneumatic position step diagram
+\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots.
+& \\
+\textbf{{[}2{]}} \textbf{22/10/2025} & Electro Pneumatic
+Circuit\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots\ldots.
+& \\
+\textbf{{[}2{]}} \textbf{22/10/2025} & Electric wiring diagrams (color
+coded schematic) \ldots\ldots\ldots\ldots\ldots\ldots\ldots. & \\
+\textbf{{[}2{]}} \textbf{22/10/2025} & Design the electric control
+circuit using SOLIDWORKS ELECTRICAL 3D & \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{project-description}{%
+\section{\texorpdfstring{Project Description
+}{Project Description }}\label{project-description}}
+
+\hypertarget{note}{%
+\subsection{\texorpdfstring{Note }{Note }}\label{note}}
+
+\begin{quote}
+Before starting your project, you must identify the size (dimensions) of
+the workpiece (object) to ensure that your project design is suitable
+for the selected object.
+
+Briefly explain your project idea and objectives.
+
+Please note that the project should include a seated frame structure to
+support and assemble all components. (Refer to the figure below.)
+\end{quote}
+
+\includegraphics[width=5.99653in,height=2.66528in]{media/image2.jpg}
+
+\begin{quote}
+Explain the operation of your project based on your mechanical design
+and the intended operating process.
+
+Example:
+
+\includegraphics[width=4.75833in,height=3.73333in]{media/image3.jpg}
+
+Solid works Design: 3D Schematic Diagram
+
+\includegraphics[width=0.20667in,height=0.155in]{media/image4.png} Draw
+the project in 3D using SolidWorks.
+
+\includegraphics[width=0.20667in,height=0.155in]{media/image4.png}
+Create an exploded view of the mechanical 3D model and assign a unique
+number to each mechanical part.
+
+\includegraphics[width=0.20667in,height=0.155in]{media/image4.png} Fill
+in the table by listing each part number along with its corresponding
+part name.
+\end{quote}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.2460}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.7540}}@{}}
+\toprule
+\begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+Part number
+\end{quote}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+Name
+\end{quote}
+\end{minipage} \\
+\midrule
+\endhead
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+1
+\end{quote}
+\end{minipage} & Structure level two -- side arm width \\
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+2
+\end{quote}
+\end{minipage} & Structure level two -- side arm length \\
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+3
+\end{quote}
+\end{minipage} & Structure level one -- side arm length \\
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+4
+\end{quote}
+\end{minipage} & Structure support bar \\
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+5
+\end{quote}
+\end{minipage} & Cylinder A bracket fixing base side \\
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+6
+\end{quote}
+\end{minipage} & Cylinder A base support \\
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+7
+\end{quote}
+\end{minipage} & Cylinder A \\
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+8
+\end{quote}
+\end{minipage} & Cylinder A bracket fixing piston side \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{mechanical-components-2d-projections-with-dimensions}{%
+\section{\texorpdfstring{Mechanical Components 2D Projections with
+Dimensions
+}{Mechanical Components 2D Projections with Dimensions }}\label{mechanical-components-2d-projections-with-dimensions}}
+
+\begin{quote}
+Each part in the project is considered a component, including nuts and
+screws.
+
+Each component should be listed in a separate row in the table provided
+below.
+\end{quote}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 0\tabcolsep) * \real{1.0000}}@{}}
+\toprule
+\begin{minipage}[b]{\linewidth}\raggedright
+Fill in the table using the part names and numbers exactly as assigned
+in the 3D model.
+\end{minipage} \\
+\midrule
+\endhead
+Insert your solid works Drawing in in 2D (with dimensions ) \\
+Fill in the table using the part names and numbers exactly as assigned
+in the 3D model. \\
+Insert your solid works Drawing in in 2D (with dimensions ) \\
+\bottomrule
+\end{longtable}
+
+\begin{quote}
+Extend the table for your entire components list
+\end{quote}
+
+\hypertarget{project-components-list-and-data-sheets-description}{%
+\section{\texorpdfstring{Project Components List and Data Sheets
+Description
+}{Project Components List and Data Sheets Description }}\label{project-components-list-and-data-sheets-description}}
+
+\begin{quote}
+• Create a table listing all the components required for your project
+(both electrical and mechanical).
+
+For each component, include the quantity, a description of its function
+and purpose, and a representative photo.
+
+\includegraphics[width=0.20667in,height=0.155in]{media/image5.png}
+Attach the PDF datasheets of all selected components to the project
+documentation.
+\end{quote}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.0463}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1159}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.3684}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1504}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.3190}}@{}}
+\toprule
+\begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+\textbf{Name}
+\end{quote}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+\textbf{Description}
+\end{quote}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Quantity}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\begin{quote}
+\textbf{Photo}
+\end{quote}
+\end{minipage} \\
+\midrule
+\endhead
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+\textbf{1}
+\end{quote}
+\end{minipage} & & & & \\
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+\textbf{2}
+\end{quote}
+\end{minipage} & & & & \\
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+\textbf{3}
+\end{quote}
+\end{minipage} & & & & \\
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+\textbf{4}
+\end{quote}
+\end{minipage} & & & & \\
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+\textbf{5}
+\end{quote}
+\end{minipage} & & & & \\
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+\textbf{.}
+
+\textbf{.}
+
+\textbf{.}
+
+\textbf{.}
+\end{quote}
+\end{minipage} & & & & \\
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{quote}
+\textbf{x}
+\end{quote}
+\end{minipage} & & & & \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{pneumatic-step-diagram-and-description}{%
+\section{\texorpdfstring{Pneumatic Step Diagram and Description
+}{Pneumatic Step Diagram and Description }}\label{pneumatic-step-diagram-and-description}}
+
+\begin{itemize}
+\item
+  Draw the pneumatic step diagram based on your project's operation, as
+  shown in the example below.
+\item
+  Explain your provided pneumatic step diagram; the sequence and the
+  project's operation. ➢ Below, an Example for the pneumatic step
+  diagram
+\end{itemize}
+
+\includegraphics[width=3.83333in,height=2.22847in]{media/image6.jpg}
+
+\hypertarget{electro-pneumatic-circuit}{%
+\section{\texorpdfstring{Electro Pneumatic Circuit
+}{Electro Pneumatic Circuit }}\label{electro-pneumatic-circuit}}
+
+\begin{itemize}
+\item
+  Draw the simulated the pneumatic-electrical circuit using the FluidSim
+  software application (you can download the software from the
+  internet).
+\item
+  Ensure that the circuit includes all necessary components and operates
+  as a fully functional controller for your project.
+\end{itemize}
+
+\begin{quote}
+\includegraphics[width=4.11in,height=2.09in]{media/image7.png}
+\end{quote}
+
+\hypertarget{hardware-model-electrical-mechanical}{%
+\section{\texorpdfstring{Hardware Model (Electrical + Mechanical)
+}{Hardware Model (Electrical + Mechanical) }}\label{hardware-model-electrical-mechanical}}
+
+\begin{quote}
+\textbf{Controller Operating Panel/ Classic Control Implementation}
+\end{quote}
+
+\hypertarget{part-a-electrical}{%
+\subsection{\texorpdfstring{Part A: Electrical
+}{Part A: Electrical }}\label{part-a-electrical}}
+
+\begin{quote}
+\textbf{Step 1:} Prepare the list of required materials.
+
+\textbf{Step 2:} Implement the classic control circuit using FluidSim.
+
+\textbf{Step 3:} Design the hardware layout of the classic control
+system as a front panel with labels. Use the known specifications of
+each component (power supply, solenoids, relays, I/O terminals, etc.) to
+determine the appropriate size of the panel for your project.
+
+\textbf{Step 4:} Create the wiring diagram for the components within the
+control panel.
+\end{quote}
+
+\hypertarget{part-b-mechanical}{%
+\subsection{\texorpdfstring{Part B: Mechanical
+}{Part B: Mechanical }}\label{part-b-mechanical}}
+
+\begin{quote}
+\textbf{Step 1:} Prepare the list of required materials.
+
+\textbf{Step 2:} Assemble all components onto the project's frame
+structure, including the electrical control panel.
+
+\textbf{Shown below:} An example of a front panel configuration for
+reference.
+\end{quote}
+
+\includegraphics[width=5.17639in,height=3.86181in]{media/image8.jpg}
+
+\hypertarget{project-hardware-as-built}{%
+\section{\texorpdfstring{Project Hardware As Built
+}{Project Hardware As Built }}\label{project-hardware-as-built}}
+
+\begin{quote}
+Insert a picture of your project hard ware implementation
+\end{quote}
+
+Project Documentation
+
+\end{document}

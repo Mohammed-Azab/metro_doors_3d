@@ -1,0 +1,272 @@
+% Milestone 1 Technical Report
+% Project: Metro Sliding Doors
+% NOTE: This file was auto-generated to structure all required milestone 1 content.
+% Fill all TODO placeholders, insert images, and replace assumed values with actual measured/design data.
+
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{amsmath,amssymb}
+\setlength{\parskip}{0.6em}
+\setlength{\parindent}{0pt}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+
+	\title{Metro Sliding Doors Project}
+\author{Student Name: \textit{TODO}\newline Student ID: \textit{TODO}\newline Group: \textit{TODO}}
+\date{Submission Date: 08 Oct 2025}
+
+\begin{document}
+\maketitle
+
+\section*{Cover Page}
+	\textbf{University:} German International University\\
+	\textbf{Course:} Mechatronics Lab (MCTR704)\\
+	\textbf{Semester:} Berlin Winter 2025\\
+	\textbf{Project Title:} Metro Sliding Doors\\
+	\textbf{Project No.:} [ x ]\\
+	\textbf{Student:} \textit{TODO}\newline
+	\textbf{Instructor/Supervisor:} \textit{TODO}\\
+\vspace{1em}
+	extbf{NOTE:} Insert logo / project representative photo here.\\
+\fbox{\parbox{0.9\linewidth}{\centering Image Placeholder (Door System Overall View) -- TODO}}
+
+	ableofcontents
+\newpage
+
+% =============================================================
+\section{Project Description (Milestone Requirement)}
+This section addresses items (a)--(e) of the milestone description. It establishes functional understanding prior to detailed CAD work.
+
+\subsection{(a) Functional Overview}
+The \textbf{Metro Sliding Doors} system provides controlled passenger access between train cars/platform and interior space. Two horizontally sliding door panels are actuated pneumatically, ensuring synchronized opening and closing. A third pneumatic cylinder controls a \textbf{safety locking mechanism} that physically prevents door movement when the system is deactivated or unsafe conditions are detected (e.g., train not aligned, emergency stop engaged).\newline
+Core functions:
+\begin{itemize}[noitemsep]
+	\item Provide reliable bi-directional sliding motion with smooth acceleration/deceleration via pneumatic actuation.
+	\item Enforce interlocks: doors cannot open unless lock disengages and system is activated from the Master panel.
+	\item Indicate door status locally (per door) and centrally (driver cabin panel) using red/green indicators.
+	\item Support manual override or emergency closing initiated only from Master panel.
+	\item Track door position using reed switches on cylinder end-of-stroke plus optional mid-travel sensors for diagnostics (optional expansion).\end{itemize}
+
+\subsection{(b) Workpiece (Transferred Object) Description}
+In this context, the \textbf{``workpiece''} is the \emph{passenger passage aperture} controlled by the two sliding door leaves. For mechanical sizing, each door panel must cover half of the total opening width.\newline
+	extbf{Assumed design dimensions (to be validated):}
+\begin{itemize}[noitemsep]
+	\item Clear opening width (full aperture): \textit{TODO e.g., 1400 mm}
+	\item Each sliding leaf nominal width: half aperture + overlap allowance: \textit{TODO}
+	\item Door leaf height: \textit{TODO e.g., 2000 mm}
+	\item Door panel thickness / construction: aluminum frame with tempered glass insert (color: neutral / light tint) -- \textit{Confirm}\end{itemize}
+Color coding (if needed) may use: frame (RAL 9006), glass (clear), safety edges (high-visibility yellow). Replace with actual chosen scheme.\newline
+	extbf{NOTE:} Insert detailed dimensional drawing of the door opening and panels here.\\
+\fbox{\parbox{0.9\linewidth}{Dimensional Drawing Placeholder (Front Elevation) -- TODO}}
+
+\subsection{(c) Operating Sequence}
+High-level sequence from inactive state to cycle completion:
+\begin{enumerate}[label=Step \arabic*:,leftmargin=2.2cm]
+	\item System powered; Master panel activation button pressed. Safety lock cylinder retracts (unlock). Green indicators turn ON; red indicators OFF.
+	\item Operator (driver) or local user presses \emph{Open} command (Master or Slave panel). Both door cylinders retract simultaneously, driving linkages to open panels fully.
+	\item Fully open confirmation via reed switches (retracted end). Optional timer or passenger sensor monitors dwell period.
+	\item Close command (Master only) issued. Door cylinders extend, sliding leaves shut. Lock cylinder extends only after doors fully closed to engage mechanical locking pawl.
+	\item System returns to \emph{secure closed} state; red indicators ON (if deactivated), or remains green if still armed for next cycle without lock engaged (design decision -- clarify).\end{enumerate}
+Interlocks:
+\begin{itemize}[noitemsep]
+	\item Lock must be disengaged before any door motion.
+	\item Closing cannot be initiated from Slave panels.
+	\item Emergency stop forces air dump, cylinders vent, doors remain (design choice: fail-safe close or fail-freeze). \textit{To define}.\end{itemize}
+
+\subsection{(d) Additional Components for Full Operation}
+Beyond base cylinders, full system requires integration of: \newline
+	extbf{Actuators and Motion:}
+\begin{itemize}[noitemsep]
+	\item 2x Pneumatic double-acting cylinders (door motion) with adjustable end cushioning.
+	\item 1x Pneumatic cylinder (lock actuator).\end{itemize}
+	extbf{Valves and Air Prep:}
+\begin{itemize}[noitemsep]
+	\item 3x Solenoid-operated 5/2 directional valves (one per cylinder) or manifold with common supply.
+	\item FRL unit (Filter-Regulator-Lubricator) + main shutoff valve + pressure gauge.
+	\item Quick exhaust valves (optional) for faster closing.\end{itemize}
+	extbf{Sensors:}
+\begin{itemize}[noitemsep]
+	\item Reed switches on cylinder barrels (extended and retracted for each door cylinder and lock cylinder).
+	\item Door edge presence / obstruction sensor (photoelectric or light curtain) \textit{(optional safety enhancement)}.
+	\item Panel pushbuttons: Open (Master/Slave), Close (Master), Activate, Emergency Stop.
+	\item Indicator lights: Green (Ready/Active), Red (Locked/Inactive).\end{itemize}
+	extbf{Mechanical Guidance:}
+\begin{itemize}[noitemsep]
+	\item Linear rails or roller track assemblies for door leaves.
+	\item Linkage brackets coupling cylinder rod to carriage.
+	\item Locking pawl and strike plate assembly.\end{itemize}
+	extbf{Safety / Enclosure:}
+\begin{itemize}[noitemsep]
+	\item Protective upper compartment housing cylinders and valves.
+	\item Panel enclosure (added in Milestone 2) reserved space in frame design.\end{itemize}
+
+\subsection{(e) System Understanding Emphasis}
+Prior to CAD work, verify: sizing of cylinders vs required stroke (half door travel), force calculations (friction + inertia), rail selection load rating, lock mechanism sequence timing, and sensor mapping to control logic. \textbf{DO NOT} finalize 3D design until force/stroke assumptions are validated.\newline
+	extbf{NOTE:} Insert preliminary engineering calculations (force, stroke, timing) here.\\
+\fbox{\parbox{0.9\linewidth}{Engineering Calculation Placeholder (Forces / Stroke / Timing) -- TODO}}
+
+% =============================================================
+\subsection*{Mechanical Actuation Mechanism (Provided Details)}
+\label{subsec:mechanism}
+This project uses a \textbf{dual rack and single pinion} transmission driven by a \textbf{single pneumatic cylinder}. The mechanism is implemented as follows:
+\begin{itemize}[noitemsep]
+	\item Two parallel racks are mounted horizontally above the door aperture. Each rack is rigidly attached (pinned) to one door leaf.
+	\item A pneumatic cylinder is mechanically connected to \emph{Rack A}. When the cylinder extends or retracts, it translates Rack A linearly.
+	\item A pinion gear engages both racks. Motion of Rack A drives the pinion, which in turn drives \emph{Rack B} in the opposite linear direction, producing synchronized and symmetric door motion.
+	\item The door leaves below run on a bottom rail via \textbf{four wheels per door} (two front, two rear), ensuring guidance, load support, and reduced friction.
+	\item End-of-stroke reed switches on the cylinder provide door fully-open and fully-closed confirmations via rack positions (through cylinder travel). Optional mid-travel sensing can be added.
+	\item A \textbf{separate locking mechanism} is included and will be described in detail later; its actuation is independent to ensure positive locking when required.
+\end{itemize}
+Benefits of this arrangement include synchronized leaf motion from a single actuator, compact packaging within the upper compartment, and straightforward position sensing using cylinder-mounted switches.
+	extbf{NOTE:} Insert a SolidWorks snapshot of the rack-pinon assembly and the door wheel/rail arrangement.\\
+\fbox{\parbox{0.9\linewidth}{Mechanism Figures Placeholder (Racks, Pinion, Cylinder Linkage, Wheels on Rail) -- TODO}}
+
+% =============================================================
+\section{SolidWorks 3D Mechanical Design Guidelines (Adapted)}
+Design will mirror real hardware implementation. Key project-specific guidelines adapting milestone points:
+\begin{itemize}[noitemsep]
+	\item Ground-seated frame with vertical uprights supporting upper cylinder compartment.
+	\item All pneumatic hardware (valves, FRL, tubing routing) contained within or on rear of frame, not protruding into passenger path.
+	\item Frame width sized by aperture + rail assemblies; height sized by door leaf + clearance + cylinder compartment depth.
+	\item Reserved mounting plane for future control panel (Milestone 2) on side column.
+	\item Clear delineation of stages: (Input = Unlock + Activate), (Operation = Open/Close door motion), (Delivery = Secured locked state ready for next cycle).
+	\item Cylinder orientation strictly horizontal; lock cylinder orthogonal or vertical depending design choice (to finalize).
+	\item Use linear guide rails for door translation; bearings for any rotating shafts (if conversion mechanism used).
+	\item Support layers: base chassis, mid rail support, upper actuator compartment.
+	\item Door position tracking via reed switches; optional mid-stroke sensor mount features integrated.\end{itemize}
+	extbf{NOTE:} Insert 3D views (isometric, front, side) of assembled model.\\
+\fbox{\parbox{0.9\linewidth}{3D Isometric View Placeholder -- TODO}}\\[0.5em]
+\fbox{\parbox{0.9\linewidth}{3D Exploded View Placeholder -- TODO}}
+
+% =============================================================
+\section{Design For Manufacturing (DFM) Report}
+DFM ensures each custom part is feasible with available processes. Provide per-part manufacturing notes and 2D drawings.
+\subsection*{Manufacturing Assumptions}
+\begin{itemize}[noitemsep]
+	\item Frame members: standard rectangular steel/aluminum profiles cut to length, drilled.
+	\item Mounting plates: laser-cut sheet metal (specify alloy, thickness), bent where required.
+	\item Lock pawl: CNC milled or laser-cut + heat-treated (if wear critical).
+	\item Brackets: sheet metal with flange bends, hole patterns for cylinder clevis.
+	\item Rails: purchased linear guide assemblies (COTS).\end{itemize}
+\subsection*{DFM Part Table}
+\begin{longtable}{>{\raggedright}p{0.13\linewidth} >{\raggedright}p{0.22\linewidth} >{\raggedright}p{0.24\linewidth} >{\raggedright}p{0.18\linewidth} >{\raggedright\arraybackslash}p{0.16\linewidth}}
+	oprule
+Part No. & Part Name & Material / Specs & Manufacturing Process & 2D Drawing Ref. \\
+\midrule
+\endhead
+1 & Base frame side upright & \textit{TODO} & Cut to length, drill & \textit{TODO FIG} \\
+2 & Upper cylinder support plate & \textit{TODO} & Laser cut + bend & \textit{TODO FIG} \\
+3 & Door carriage bracket & \textit{TODO} & Laser cut + bend & \textit{TODO FIG} \\
+4 & Lock pawl & \textit{TODO} & Laser cut + mill finish & \textit{TODO FIG} \\
+5 & Valve manifold plate & \textit{TODO} & Laser cut & \textit{TODO FIG} \\
+... & ... & ... & ... & ... \\
+\bottomrule
+\end{longtable}
+	extbf{NOTE:} Insert each 2D technical drawing (dimensions, tolerances) following the table.\\
+\fbox{\parbox{0.9\linewidth}{2D Drawing Set Placeholder -- TODO}}
+
+% =============================================================
+\section{Design For Assembly (DFA) Report}
+Focus: minimize assembly time, ensure accessibility, reduce fastener count, enable maintenance.
+\subsection*{Assembly Strategy}
+\begin{itemize}[noitemsep]
+	\item Modular subassemblies: Frame, Door Panels on Carriages, Actuator Compartment (cylinders + valves), Lock Mechanism, Sensor Harness.
+	\item Fastener standardization: prioritize M6 socket head and self-locking nuts \textit{(verify)}.
+	\item Accessibility: sliding panels removable without disturbing cylinder alignment.
+	\item Cable/pneumatic routing channels integrated in upright profiles.
+	\item Exploded views to illustrate sequence and tool clearance zones.\end{itemize}
+	extbf{NOTE:} Insert exploded subassembly views and annotated assembly sequence list.\\
+\fbox{\parbox{0.9\linewidth}{Exploded Subassembly Views Placeholder -- TODO}}
+
+% =============================================================
+\section{Mechanical Component List}
+Comprehensive inventory per milestone instructions.
+\begin{longtable}{>{\raggedright}p{0.05\linewidth} >{\raggedright}p{0.25\linewidth} >{\raggedright}p{0.30\linewidth} >{\raggedright}p{0.10\linewidth} >{\raggedright\arraybackslash}p{0.25\linewidth}}
+	oprule
+No. & Name & Description / Function & Qty & Notes / Datasheet Ref. \\
+\midrule
+\endhead
+1 & Pneumatic cylinder (door left) & Actuate left sliding door & 1 & Stroke \textit{TODO} \\
+2 & Pneumatic cylinder (door right) & Actuate right sliding door & 1 & Stroke \textit{TODO} \\
+3 & Lock actuator cylinder & Engage/disengage lock & 1 & Stroke \textit{TODO} \\
+4 & 5/2 solenoid valve & Control left door cylinder & 1 & Coil voltage \textit{TODO} \\
+5 & 5/2 solenoid valve & Control right door cylinder & 1 & Coil voltage \textit{TODO} \\
+6 & 5/2 solenoid valve & Control lock cylinder & 1 & Coil voltage \textit{TODO} \\
+7 & FRL unit & Air preparation & 1 & Model \textit{TODO} \\
+8 & Pressure regulator gauge & Pressure monitoring & 1 & Range \textit{TODO} \\
+9 & Reed switches & End-position sensing & 6 & 2 per cylinder \\
+10 & Linear guide rail & Door leaf translation & 2 & Length \textit{TODO} \\
+11 & Door carriage assembly & Supports door leaf & 2 & Bearing type \textit{TODO} \\
+12 & Door panel (leaf) & Barrier component & 2 & Material \textit{TODO} \\
+13 & Lock pawl & Mechanical lock interface & 1 & Hardened? \textit{TODO} \\
+14 & Strike plate & Receives lock pawl & 1 & \textit{TODO} \\
+15 & Indicator lights (Green) & Status active & 2 & Voltage \textit{TODO} \\
+16 & Indicator lights (Red) & Status inactive & 2 & Voltage \textit{TODO} \\
+17 & Master panel buttons & Open/Close/Activate & 3 & Type \textit{TODO} \\
+18 & Slave panel buttons & Local open & 2 & Type \textit{TODO} \\
+19 & Emergency stop & Safety shutdown & 1 & Standard \textit{TODO} \\
+20 & Tubing (various diam.) & Pneumatic connections & \textit{m} & Diameter \textit{TODO} \\
+21 & Fittings (elbow, T) & Air routing & Set & Count \textit{TODO} \\
+22 & Fasteners (M6 bolts) & Structural joints & Set & \textit{TODO} \\
+23 & Fasteners (M8 bolts) & High-load joints & Set & \textit{TODO} \\
+24 & Cable duct / channel & Wiring/pneumatic mgmt & As req. & Length \textit{TODO} \\
+25 & Valve manifold plate & Mount valves & 1 & Material \textit{TODO} \\
+... & ... & ... & ... & ... \\
+\bottomrule
+\end{longtable}
+	extbf{NOTE:} Attach PDF datasheets for all purchased components in Appendix (placeholder below).\\
+\fbox{\parbox{0.9\linewidth}{Datasheets Appendix Placeholder -- TODO}}
+
+% =============================================================
+\section{Pneumatic Position-Step Diagram}
+This diagram defines sequence control states of the three cylinders.\newline
+State notation: LDC (Left Door Cylinder), RDC (Right Door Cylinder), LC (Lock Cylinder).\newline
+	extbf{Legend:} EXT = Extended, RET = Retracted.
+\begin{longtable}{>{\raggedright}p{0.10\linewidth} >{\raggedright}p{0.20\linewidth} >{\raggedright}p{0.20\linewidth} >{\raggedright}p{0.20\linewidth} >{\raggedright\arraybackslash}p{0.25\linewidth}}
+	oprule
+Step & LDC & RDC & LC & Event / Sensor Condition \\
+\midrule
+\endhead
+0 & EXT (Closed) & EXT (Closed) & EXT (Locked) & System inactive (Red ON) \\
+1 & EXT & EXT & RET (Unlocked) & Activate pressed (Green ON) \\
+2 & RET (Opening) & RET (Opening) & RET & Open command; door travel start (Reed mid optional) \\
+3 & RET (Open) & RET (Open) & RET & Both door cylinders retract reed switches ON \\
+4 & EXT (Closing) & EXT (Closing) & RET & Close command; lock stays disengaged until doors closed \\
+5 & EXT (Closed) & EXT (Closed) & EXT (Lock engage) & Door closed sensors ON, lock extends \\
+6 & EXT & EXT & EXT & Cycle complete; ready for next activation \\
+\bottomrule
+\end{longtable}
+	extbf{NOTE:} Insert graphical pneumatic step diagram here.\\
+\fbox{\parbox{0.9\linewidth}{Pneumatic Step Diagram Graphic Placeholder -- TODO}}
+
+% =============================================================
+\section{Milestone Deliverables Checklist}
+\begin{itemize}[noitemsep]
+	\item Project description (Section 1) -- \textit{Drafted}
+	\item 3D views of mechanical design -- \textit{Pending CAD} (Placeholder inserted)
+	\item Mechanical component list -- \textit{Initial list provided; refine quantities}
+	\item DFM report + 2D drawings -- \textit{Framework ready; drawings pending}
+	\item DFA report with exploded views -- \textit{Framework ready; views pending}
+	\item Pneumatic position-step diagram -- \textit{Tabular sequence provided; graphic pending}
+	\item SolidWorks 3D design files -- \textit{To include in ZIP upon completion}
+\end{itemize}
+
+% =============================================================
+\section{Appendix}
+\subsection*{A. Datasheets}
+	\textbf{NOTE:} Insert PDFs (referenced externally) or summary tables for each purchased component.\\
+\fbox{\parbox{0.9\linewidth}{Datasheet Collection Placeholder -- TODO}}
+\subsection*{B. Engineering Calculations}
+	\textbf{NOTE:} Force sizing for cylinders, friction coefficients, air consumption estimates.\\
+\fbox{\parbox{0.9\linewidth}{Calculation Sheets Placeholder -- TODO}}
+\subsection*{C. Risk and Safety Notes}
+Preliminary safety considerations: pinch points at door edges, emergency stop circuit design, pneumatic pressure limits. Detailed FMEA optional in later milestone.\\
+	\textbf{NOTE:} Insert safety assessment here.
+
+\end{document}
