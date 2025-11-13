@@ -97,7 +97,7 @@ The \textbf{workpiece} is the \emph{passenger passage aperture} governed by two 
 	\item Construction: Aluminum perimeter frame + tempered glass insert (light neutral tint) \textit{(confirm thickness, e.g., 6--8 mm)}
 \end{itemize}
 Color coding draft: Frame (RAL 9006), glass (clear), safety / edge trim (high-visibility yellow). Final selection pending ergonomic review.\newline
-	extbf{NOTE:} Insert detailed elevation with stroke annotation and rack/pinion centerline.\\
+	\textbf{NOTE:} Insert detailed elevation with stroke annotation and rack/pinion centerline.\\
 \fbox{\parbox{0.9\linewidth}{Dimensional Drawing Placeholder (Front Elevation + Stroke Marks) -- TODO}}
 
 \subsection{(c) Operating Sequence}
@@ -136,20 +136,53 @@ Beyond base actuators, system integrates: \newline
   \item Reed or proximity sensor for metro slider extended/retracted (optional if correlated to door cylinder).
 	\item Lock solenoid end-of-stroke confirmation (optional micro-switch). 
 	\item Panel pushbuttons: Open (Master/Slave), Close (Master), Activate, Emergency Stop.
-	\item Indicator lights: Green (Ready/Active), Red (Locked/Inactive).\end{itemize}
-	\textbf{Mechanical Guidance:}
+	\item Indicator lights: Green (Ready/Active), Red (Locked/Inactive).
+\end{itemize}
+
+% New: concrete recommendations with datasheet + 3D links
+\subsubsection*{Recommended Sensors and Placement (with datasheets/CAD)}
 \begin{itemize}[noitemsep]
-	\item Linear rails or roller track assemblies for door leaves.
-	\item Linkage brackets coupling cylinder rod to carriage.
-	\item Locking pawl and strike plate assembly.\end{itemize}
-	\textbf{Safety / Enclosure:}
-\begin{itemize}[noitemsep]
-	\item Protective upper compartment housing cylinders and valves.
-	\item Panel enclosure (added in Milestone 2) reserved space in frame design.\end{itemize}
+  \item \textbf{Door cylinder end-position (Open/Closed):} T-slot magnetic reed switch.
+    \begin{itemize}[noitemsep]
+      \item Example: Festo SMT-8M-A-PS-24V-E-0.3-M8D (PNP, 24 VDC).
+      \item Placement: one near each end of the door cylinder barrel (slide into T-slot and secure).
+      \item Datasheet: \href{https://www.festo.com/us/en/p/smt-8m-a-ps-24v-e-0-3-m8d-id_VAEM_EU/en/}{Festo product page}
+      \item 3D model (STEP): on same page under CAD/Downloads.
+    \end{itemize}
+  \item \textbf{IR through-beam across doorway (obstruction):} Compact photoelectric pair.
+    \begin{itemize}[noitemsep]
+      \item Example: Omron E3Z-T81 (TX) + E3Z-R81 (RX), PNP, 24 VDC, 15 m.
+      \item Placement: TX on one door post, RX directly opposite on the other; beam centered ~900–1100 mm above floor.
+      \item Datasheet: \href{https://assets.omron.eu/downloads/datasheet/en/v4/e3z_datasheet_en.pdf}{E3Z datasheet}
+      \item 3D model (STEP): \href{https://industrial.omron.eu/en/products/e3z}{Omron E3Z page} (CAD/3D tab).
+    \end{itemize}
+  \item \textbf{Metro slider end-position (Extended/Retracted):} M8 flush inductive proximity, PNP NO, 24 VDC.
+    \begin{itemize}[noitemsep]
+      \item Example: ifm IF5711 (M8, 2 mm, PNP NO).
+      \item Placement: fixed to frame; sense a steel target on slider bracket at both ends.
+      \item Datasheet: \href{https://www.ifm.com/us/en/product/IF5711}{ifm IF5711}
+      \item 3D model (STEP): same page, “CAD/3D” download.
+    \end{itemize}
+  \item \textbf{Lock solenoid end-of-stroke confirm:} Compact lever microswitch.
+    \begin{itemize}[noitemsep]
+      \item Example: Omron SS-5GL2 (lever, NC/NO).
+      \item Placement: mount so the lock pawl flags the lever at the fully engaged position.
+      \item Datasheet: \href{https://omronfs.omron.com/en_US/ecb/products/pdf/en-ss.pdf}{Omron SS series datasheet}
+      \item 3D model (STEP): \href{https://www.traceparts.com/en/product/omron-ss-5gl2?CatalogPath=TRACEPARTS%3ATP01004001001}{TraceParts model}
+    \end{itemize}
+  \item \textbf{Optional safety upgrade (instead of single IR beam):} Safety light curtain.
+    \begin{itemize}[noitemsep]
+      \item Example: SICK deTec4 Core (Type 4).
+      \item Placement: span the doorway opening; wire to safety relay.
+      \item Datasheet: \href{https://cdn.sick.com/media/docs/1/11/811/Data_sheet_deTec4_Core_en_im0052811.pdf}{SICK deTec4 Core datasheet}
+      \item 3D model (STEP): \href{https://www.sick.com/ag/en/detection-and-ranging-solutions/safety-light-curtains/detec4-core/c/g323923}{SICK product page}
+    \end{itemize}
+\end{itemize}
+\textit{Notes: 24 VDC supply, choose PNP vs NPN to match controller. Use shielded cable for IR/analog lines and provide proper strain relief.}
 
 \subsection{(e) System Understanding Emphasis}
 Prior to CAD work, verify: sizing of cylinders vs required stroke (half door travel), force calculations (friction + inertia), rail selection load rating, lock mechanism sequence timing, and sensor mapping to control logic. \textbf{DO NOT} finalize 3D design until force/stroke assumptions are validated.\newline
-	extbf{NOTE:} Insert preliminary engineering calculations (force, stroke, timing) here.\\
+	\textbf{NOTE:} Insert preliminary engineering calculations (force, stroke, timing) here.\\
 \fbox{\parbox{0.9\linewidth}{Engineering Calculation Placeholder (Forces / Stroke / Timing) -- TODO}}
 
 % =============================================================
@@ -165,7 +198,7 @@ Transmission architecture:
   \item \textbf{Sensing}: Reed switches (door cylinder ends), IR beam (obstruction + closed verification), optional micro-switch on lock solenoid.
 \end{itemize}
 Benefits: Reduced actuator count, synchronized motion, clear sensing points, compact upper compartment packaging.
-	extbf{Mechanism Figures:}
+	\textbf{Mechanism Figures:}
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.45\linewidth]{../3D_photos/door_Mechanims_opened.png}\hfill
@@ -195,6 +228,26 @@ Benefits: Reduced actuator count, synchronized motion, clear sensing points, com
 	\caption{Left: door roller wheel set. Right: door control/open button concept.}
 \end{figure}
 
+% New locking mechanism detail images (update filenames to match your added photos)
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.45\linewidth]{../3D_photos/lached.PNG}\hfill
+  \includegraphics[width=0.45\linewidth]{../3D_photos/lached cut.PNG}
+  \caption{Locking mechanism detailed views: showing engagement geometry.}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.55\linewidth]{../3D_photos/unlatched.PNG}
+  \caption{Locking mechanism unlatched (isolated)}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.55\linewidth]{../3D_photos/Displacement under 175N.PNG}
+  \caption{Stress analysis (von Mises) of locking claw under peak load}
+\end{figure}
+
 % =============================================================
 \section{SolidWorks 3D Mechanical Design Guidelines (Adapted)}
 Design will mirror real hardware implementation. Key project-specific guidelines adapting milestone points:
@@ -222,7 +275,7 @@ DFM ensures each custom part is feasible with available processes. Provide per-p
 	\item Lock pawl: CNC milled or laser-cut + heat-treated (if wear critical).
 	\item Brackets: sheet metal with flange bends, hole patterns for cylinder clevis.
 	\item Rails: purchased linear guide assemblies (COTS).\end{itemize}
-	extbf{DFM Part Table (Preliminary)}
+	\textbf{DFM Part Table (Preliminary)}
 \begin{longtable}{>{\raggedright}p{0.10\linewidth} >{\raggedright}p{0.25\linewidth} >{\raggedright}p{0.23\linewidth} >{\raggedright}p{0.22\linewidth} >{\raggedright\arraybackslash}p{0.15\linewidth}}
 				oprule
 Part & Name & Material / Specs (Draft) & Process & Drawing Ref. \\
