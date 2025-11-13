@@ -69,7 +69,7 @@ The \textbf{Metro Sliding Doors} system provides controlled passenger access bet
 	\item \textbf{Lock Linear Solenoid (LS)}: a compact linear actuator (approx. 100 mm stroke) providing mechanical locking. Sequence: it actuates (extends) briefly to disengage the lock prior to door motion, then returns (retracts) to a neutral standby while the door completes travel; re-engagement occurs after verified closure.
 	\item \textbf{Metro Slider Cylinder (MSC)}: an auxiliary medium-stroke cylinder (approx. 425 mm stroke) that deploys a secondary sliding element/cover concurrently with door opening and retracts during door closing. \textit{Extended = Slider Open}, \textit{Retracted = Slider Closed}.
 \end{enumerate}
-	extbf{Sensors and Safety Logic:}
+	\textbf{Sensors and Safety Logic:}
 \begin{itemize}[noitemsep]
 	\item \textbf{Reed switches} on the door actuator confirm fully open and fully closed positions (end-of-stroke). Optional mid-travel can be added later.
 	\item \textbf{IR Beam (Door-to-Door)}: verifies unobstructed closure. If the beam is broken during a closing sequence, the system immediately commands a reopen (DC extend, MSC extend) while keeping the lock solenoid disengaged to avoid pinch hazards.
@@ -85,9 +85,8 @@ Core functions:
 	\item Simplify maintenance by reducing actuator count (one main door cylinder instead of two).
 \end{itemize}
 
-\subsection{(b) Workpiece (Transferred Object) Description}
+\subsection{(b) Workpiece Description}
 The \textbf{workpiece} is the \emph{passenger passage aperture} governed by two coupled sliding leaves.
-	extbf{Preliminary dimensional assumptions (validate in Milestone 2):}
 \begin{itemize}[noitemsep]
 	\item Clear opening width (aperture): \textit{TODO (e.g., 1400 mm)}
 	\item Each leaf nominal coverage: half aperture + overlap allowance (seal) \textit{(compute after selecting frame profile)}
@@ -120,17 +119,17 @@ Interlocks and Safety:
 
 \subsection{(d) Additional Components for Full Operation}
 Beyond base actuators, system integrates: \newline
-	extbf{Actuators and Motion:}
+	\textbf{Actuators and Motion:}
 \begin{itemize}[noitemsep]
   \item 1x Long-stroke pneumatic double-acting cylinder (dual rack door motion) with end cushioning.
   \item 1x Medium-stroke pneumatic double-acting cylinder (metro slider).
   \item 1x Short-stroke linear solenoid / pneumatic cylinder (lock).\end{itemize}
-	extbf{Valves and Air Prep:}
+	\textbf{Valves and Air Prep:}
 \begin{itemize}[noitemsep]
   \item 3x Solenoid-operated 5/2 directional valves (one per actuator) or integrated manifold.
 	\item FRL unit (Filter-Regulator-Lubricator) + main shutoff valve + pressure gauge.
 	\item Quick exhaust valves (optional) for faster closing.\end{itemize}
-	extbf{Sensors:}
+	\textbf{Sensors:}
 \begin{itemize}[noitemsep]
   \item Reed switches on door cylinder (Open/Closed) + optional mid-travel.
   \item IR beam pair across doorway (obstruction + closed verification).
@@ -138,12 +137,12 @@ Beyond base actuators, system integrates: \newline
 	\item Lock solenoid end-of-stroke confirmation (optional micro-switch). 
 	\item Panel pushbuttons: Open (Master/Slave), Close (Master), Activate, Emergency Stop.
 	\item Indicator lights: Green (Ready/Active), Red (Locked/Inactive).\end{itemize}
-	extbf{Mechanical Guidance:}
+	\textbf{Mechanical Guidance:}
 \begin{itemize}[noitemsep]
 	\item Linear rails or roller track assemblies for door leaves.
 	\item Linkage brackets coupling cylinder rod to carriage.
 	\item Locking pawl and strike plate assembly.\end{itemize}
-	extbf{Safety / Enclosure:}
+	\textbf{Safety / Enclosure:}
 \begin{itemize}[noitemsep]
 	\item Protective upper compartment housing cylinders and valves.
 	\item Panel enclosure (added in Milestone 2) reserved space in frame design.\end{itemize}
@@ -154,7 +153,7 @@ Prior to CAD work, verify: sizing of cylinders vs required stroke (half door tra
 \fbox{\parbox{0.9\linewidth}{Engineering Calculation Placeholder (Forces / Stroke / Timing) -- TODO}}
 
 % =============================================================
-\subsection*{Mechanical Actuation Mechanism (Updated)}
+\subsection*{Mechanical Actuation Mechanism}
 \label{subsec:mechanism}
 Transmission architecture:
 \begin{itemize}[noitemsep]
@@ -349,7 +348,7 @@ OB Obstruction & EXT (Re-open) & EXT (Re-open) & RET & IR beam broken during clo
 \caption{Pneumatic position diagram (normal): A+/B+ during opening, A-/B- during closing. Interlock: A+ rises only after C is fully extended (C\_ext).}
 \end{figure}
 
-	extbf{NOTE:} The time diagram above mirrors the tabular sequence.
+	\textbf{NOTE:} The time diagram above mirrors the tabular sequence.
 
 % Obstruction/human-detected variant (IR or proximity sensor)
 \begin{figure}[h]
