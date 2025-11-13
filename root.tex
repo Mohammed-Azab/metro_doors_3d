@@ -22,18 +22,24 @@
 \date{Submission Date: 08 Oct 2025}
 
 \begin{document}
+% University Logo (top-left)
+\begin{flushleft}
+	% Adjust height as needed; replace path if logo file differs
+	\includegraphics[height=1.8cm]{media/giu.png}% University Logo Placeholder
+\end{flushleft}
+\vspace{-1.2em}% tighten space before title
 \maketitle
 
 \section*{Cover Page}
-	\textbf{University:} German International University\\
+	\textbf{University:} German International University in Berlin\\
 	\textbf{Course:} Mechatronics Lab (MCTR704)\\
 	\textbf{Semester:} Berlin Winter 2025\\
 	\textbf{Project Title:} Metro Sliding Doors\\
-	\textbf{Project No.:} [ x ]\\
+	\textbf{Project No.:} [ 9 ]\\
 	\textbf{Student:} \textit{TODO}\newline
 	\textbf{Instructor/Supervisor:} \textit{TODO}\\
 \vspace{1em}
-	extbf{NOTE:} Insert logo / project representative photo here.\\
+	textbf{NOTE:} Insert logo / project representative photo here.\\
 \fbox{\parbox{0.9\linewidth}{\centering Image Placeholder (Door System Overall View) -- TODO}}
 
 	ableofcontents
@@ -140,7 +146,7 @@ Design will mirror real hardware implementation. Key project-specific guidelines
 	\item Use linear guide rails for door translation; bearings for any rotating shafts (if conversion mechanism used).
 	\item Support layers: base chassis, mid rail support, upper actuator compartment.
 	\item Door position tracking via reed switches; optional mid-stroke sensor mount features integrated.\end{itemize}
-	extbf{NOTE:} Insert 3D views (isometric, front, side) of assembled model.\\
+	\textbf{NOTE:} Insert 3D views (isometric, front, side) of assembled model.\\
 \fbox{\parbox{0.9\linewidth}{3D Isometric View Placeholder -- TODO}}\\[0.5em]
 \fbox{\parbox{0.9\linewidth}{3D Exploded View Placeholder -- TODO}}
 
@@ -168,7 +174,7 @@ Part No. & Part Name & Material / Specs & Manufacturing Process & 2D Drawing Ref
 ... & ... & ... & ... & ... \\
 \bottomrule
 \end{longtable}
-	extbf{NOTE:} Insert each 2D technical drawing (dimensions, tolerances) following the table.\\
+	\textbf{NOTE:} Insert each 2D technical drawing (dimensions, tolerances) following the table.\\
 \fbox{\parbox{0.9\linewidth}{2D Drawing Set Placeholder -- TODO}}
 
 % =============================================================
@@ -181,7 +187,7 @@ Focus: minimize assembly time, ensure accessibility, reduce fastener count, enab
 	\item Accessibility: sliding panels removable without disturbing cylinder alignment.
 	\item Cable/pneumatic routing channels integrated in upright profiles.
 	\item Exploded views to illustrate sequence and tool clearance zones.\end{itemize}
-	extbf{NOTE:} Insert exploded subassembly views and annotated assembly sequence list.\\
+	\textbf{NOTE:} Insert exploded subassembly views and annotated assembly sequence list.\\
 \fbox{\parbox{0.9\linewidth}{Exploded Subassembly Views Placeholder -- TODO}}
 
 % =============================================================
@@ -220,14 +226,14 @@ No. & Name & Description / Function & Qty & Notes / Datasheet Ref. \\
 ... & ... & ... & ... & ... \\
 \bottomrule
 \end{longtable}
-	extbf{NOTE:} Attach PDF datasheets for all purchased components in Appendix (placeholder below).\\
+	\textbf{NOTE:} Attach PDF datasheets for all purchased components in Appendix (placeholder below).\\
 \fbox{\parbox{0.9\linewidth}{Datasheets Appendix Placeholder -- TODO}}
 
 % =============================================================
 \section{Pneumatic Position-Step Diagram}
 This diagram defines sequence control states of the three cylinders.\newline
 State notation: LDC (Left Door Cylinder), RDC (Right Door Cylinder), LC (Lock Cylinder).\newline
-	extbf{Legend:} EXT = Extended, RET = Retracted.
+	\textbf{Legend:} EXT = Extended, RET = Retracted.
 \begin{longtable}{>{\raggedright}p{0.10\linewidth} >{\raggedright}p{0.20\linewidth} >{\raggedright}p{0.20\linewidth} >{\raggedright}p{0.20\linewidth} >{\raggedright\arraybackslash}p{0.25\linewidth}}
 	oprule
 Step & LDC & RDC & LC & Event / Sensor Condition \\
@@ -242,7 +248,7 @@ Step & LDC & RDC & LC & Event / Sensor Condition \\
 6 & EXT & EXT & EXT & Cycle complete; ready for next activation \\
 \bottomrule
 \end{longtable}
-	extbf{NOTE:} Insert graphical pneumatic step diagram here.\\
+	\textbf{NOTE:} Insert graphical pneumatic step diagram here.\\
 \fbox{\parbox{0.9\linewidth}{Pneumatic Step Diagram Graphic Placeholder -- TODO}}
 
 % =============================================================
