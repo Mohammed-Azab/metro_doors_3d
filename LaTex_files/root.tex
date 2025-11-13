@@ -41,7 +41,7 @@
   \textbf{University:} German International University\\
   \textbf{Course:} Mechatronics Lab (MCTR704)\\
   \textbf{Project No.:} [ 9 ]\\
-  \textbf{Instructor/Supervisor:} \textit{MSC. Mohammed Shaaban}\\
+  \textbf{Instructor/Supervisor:} \textit{MSc Mohammed Shaaban}\\
 \end{center}
 
 \begin{center}
@@ -67,12 +67,12 @@ The \textbf{Metro Sliding Doors} system provides controlled passenger access bet
 \begin{enumerate}[noitemsep]
 	\item \textbf{Door Actuator Cylinder (DC)}: a single long-stroke pneumatic cylinder (approx. 850 mm stroke) driving both door leaves via a dual rack / single pinion mechanism. \textit{Extended = Doors Open}, \textit{Retracted = Doors Closed}.
 	\item \textbf{Lock Linear Solenoid (LS)}: a compact linear actuator (approx. 100 mm stroke) providing mechanical locking. Sequence: it actuates (extends) briefly to disengage the lock prior to door motion, then returns (retracts) to a neutral standby while the door completes travel; re-engagement occurs after verified closure.
-	\item \textbf{Metro Slider Cylinder (MSC)}: an auxiliary medium-stroke cylinder (approx. 425 mm stroke) that deploys a secondary sliding element/cover concurrently with door opening and retracts during door closing. \textit{Extended = Slider Open}, \textit{Retracted = Slider Closed}.
+	\item \textbf{Platform Gap Filler (GF1)}: a platform gap-filling module/actuator that deploys concurrently with door opening and retracts during door closing (per datasheet \href{../datasheet/GF1-50-2.pdf}{GF1-50-2.pdf}). \textit{Extended = Gap Filler Deployed}, \textit{Retracted = Gap Filler Retracted}.
 \end{enumerate}
 	\textbf{Sensors and Safety Logic:}
 \begin{itemize}[noitemsep]
 	\item \textbf{Reed switches} on the door actuator confirm fully open and fully closed positions (end-of-stroke). Optional mid-travel can be added later.
-	\item \textbf{IR Beam (Door-to-Door)}: verifies unobstructed closure. If the beam is broken during a closing sequence, the system immediately commands a reopen (DC extend, MSC extend) while keeping the lock solenoid disengaged to avoid pinch hazards.
+	\item \textbf{Capacitive sensors (doorway/edge)}: verify unobstructed closure. If an obstruction is detected by the capacitive sensors during a closing sequence, the system immediately commands a reopen (DC extend, GF1 extend) while keeping the lock solenoid disengaged to avoid pinch hazards.
 	\item Status indicators (Red = Locked/Inactive, Green = Active/Unlocked) reflect system readiness.
 	\item Interlocks ensure the door cannot begin opening unless the lock solenoid has completed its unlock pulse.
 \end{itemize}
@@ -92,7 +92,7 @@ The \textbf{workpiece} is the \emph{passenger passage aperture} governed by two 
 	\item Each leaf nominal coverage: half aperture + overlap allowance (seal) \textit{(compute after selecting frame profile)}
 	\item Door leaf height: \textit{TODO (e.g., 2000 mm)}
 	\item Door actuator stroke: \textbf{$\approx$ 850 mm} (matches travel needed for full open)
-	\item Metro slider stroke: \textbf{$\approx$ 425 mm} (about half of main door travel)
+	\item Gap filler travel: \textbf{per GF1-50-2 datasheet} (see \href{../datasheet/GF1-50-2.pdf}{GF1-50-2.pdf})
 	\item Lock solenoid stroke: \textbf{$\approx$ 100 mm} (sufficient for pawl withdrawal)
 	\item Construction: Aluminum perimeter frame + tempered glass insert (light neutral tint) \textit{(confirm thickness, e.g., 6--8 mm)}
 \end{itemize}
@@ -101,18 +101,18 @@ Color coding draft: Frame (RAL 9006), glass (clear), safety / edge trim (high-vi
 \fbox{\parbox{0.9\linewidth}{Dimensional Drawing Placeholder (Front Elevation + Stroke Marks) -- TODO}}
 
 \subsection{(c) Operating Sequence}
-High-level sequence (mapping: DC Extended = Doors Open, MSC Extended = Slider Open, LS Extended = Unlock Pulse):
+High-level sequence (mapping: DC Extended = Doors Open, GF1 Extended = Gap Filler Deployed, LS Extended = Unlock Pulse):
 \begin{enumerate}[label=Step \arabic*:,leftmargin=2.2cm]
-	\item \textbf{Idle Locked}: System inactive. DC Retracted (doors closed), MSC Retracted (slider closed), LS Retracted (lock engaged). Red ON.
+	\item \textbf{Idle Locked}: System inactive. DC Retracted (doors closed), GF1 Retracted (gap filler retracted), LS Retracted (lock engaged). Red ON.
 	\item \textbf{Unlock Pulse}: Activation pressed. LS Extends briefly to withdraw lock pawl; Green ON. LS then retracts to standby (pawl held clear mechanically).
-	\item \textbf{Dwell Open}: DC Extended, MSC Extended. Timer or passenger flow condition decides closing initiation.
-	\item \textbf{Closing}: Close command (Master). DC Retracts; MSC Retracts. IR beam must remain clear. If IR obstruction occurs, sequence aborts and system returns to Opening (auto-reopen).
-	\item \textbf{Closed + Relock}: Reed Closed confirms stroke end. IR beam \emph{clear} condition verified. LS may perform a short confirm pulse (optional) or remain retracted if passive latch design. Red or Green status per armed state policy.
+	\item \textbf{Dwell Open}: DC Extended, GF1 Extended. Timer or passenger flow condition decides closing initiation.
+	\item \textbf{Closing}: Close command (Master). DC Retracts; GF1 Retracts. Capacitive sensors must remain clear (no detection). If an obstruction is detected, sequence aborts and the system returns to Opening (auto-reopen).
+	\item \textbf{Closed + Relock}: Reed Closed confirms stroke end. Capacitive sensors confirm \emph{no detection}. LS may perform a short confirm pulse (optional) or remain retracted if passive latch design. Red or Green status per armed state policy.
 \end{enumerate}
 Interlocks and Safety:
 \begin{itemize}[noitemsep]
 	\item Door motion blocked until initial unlock pulse complete.
-	\item Obstruction (IR beam break during closing) forces immediate DC re-extend + MSC re-extend (fail-safe reopen) and inhibits relock.
+	\item Obstruction (capacitive detection during closing) forces immediate DC re-extend + GF1 re-extend (fail-safe reopen) and inhibits relock.
 	\item Emergency stop vents air: choose policy (recommended: hold position if mid-travel, else reopen if safe). To finalize after pneumatic circuit design.
 	\item Closing command restricted to Master panel; Opening allowed from Master or Slave (local).
 \end{itemize}
@@ -122,7 +122,7 @@ Beyond base actuators, system integrates: \newline
 	\textbf{Actuators and Motion:}
 \begin{itemize}[noitemsep]
   \item 1x Long-stroke pneumatic double-acting cylinder (dual rack door motion) with end cushioning.
-  \item 1x Medium-stroke pneumatic double-acting cylinder (metro slider).
+	\item 1x Platform Gap Filler (GF1) actuator/module (per \href{../datasheet/GF1-50-2.pdf}{GF1-50-2.pdf}).
   \item 1x Short-stroke linear solenoid / pneumatic cylinder (lock).\end{itemize}
 	\textbf{Valves and Air Prep:}
 \begin{itemize}[noitemsep]
@@ -132,53 +132,30 @@ Beyond base actuators, system integrates: \newline
 	\textbf{Sensors:}
 \begin{itemize}[noitemsep]
   \item Reed switches on door cylinder (Open/Closed) + optional mid-travel.
-  \item IR beam pair across doorway (obstruction + closed verification).
-  \item Reed or proximity sensor for metro slider extended/retracted (optional if correlated to door cylinder).
+	\item Capacitive proximity sensors (KI5002-02) positioned at doorway edges (obstruction + closed verification). See \href{../datasheet/KI5002-02_DE-DE.pdf}{KI5002-02\_DE-DE.pdf}.
+	\item Proximity or limit sensing for gap filler deployed/retracted (optional if correlated to door cylinder).
 	\item Lock solenoid end-of-stroke confirmation (optional micro-switch). 
 	\item Panel pushbuttons: Open (Master/Slave), Close (Master), Activate, Emergency Stop.
 	\item Indicator lights: Green (Ready/Active), Red (Locked/Inactive).
 \end{itemize}
 
 % New: concrete recommendations with datasheet + 3D links
-\subsubsection*{Recommended Sensors and Placement (with datasheets/CAD)}
+\subsubsection*{Sensors and Placement}
 \begin{itemize}[noitemsep]
-  \item \textbf{Door cylinder end-position (Open/Closed):} T-slot magnetic reed switch.
-    \begin{itemize}[noitemsep]
-      \item Example: Festo SMT-8M-A-PS-24V-E-0.3-M8D (PNP, 24 VDC).
-      \item Placement: one near each end of the door cylinder barrel (slide into T-slot and secure).
-      \item Datasheet: \href{https://www.festo.com/us/en/p/smt-8m-a-ps-24v-e-0-3-m8d-id_VAEM_EU/en/}{Festo product page}
-      \item 3D model (STEP): on same page under CAD/Downloads.
-    \end{itemize}
-  \item \textbf{IR through-beam across doorway (obstruction):} Compact photoelectric pair.
-    \begin{itemize}[noitemsep]
-      \item Example: Omron E3Z-T81 (TX) + E3Z-R81 (RX), PNP, 24 VDC, 15 m.
-      \item Placement: TX on one door post, RX directly opposite on the other; beam centered ~900–1100 mm above floor.
-      \item Datasheet: \href{https://assets.omron.eu/downloads/datasheet/en/v4/e3z_datasheet_en.pdf}{E3Z datasheet}
-      \item 3D model (STEP): \href{https://industrial.omron.eu/en/products/e3z}{Omron E3Z page} (CAD/3D tab).
-    \end{itemize}
-  \item \textbf{Metro slider end-position (Extended/Retracted):} M8 flush inductive proximity, PNP NO, 24 VDC.
-    \begin{itemize}[noitemsep]
-      \item Example: ifm IF5711 (M8, 2 mm, PNP NO).
-      \item Placement: fixed to frame; sense a steel target on slider bracket at both ends.
-      \item Datasheet: \href{https://www.ifm.com/us/en/product/IF5711}{ifm IF5711}
-      \item 3D model (STEP): same page, “CAD/3D” download.
-    \end{itemize}
-  \item \textbf{Lock solenoid end-of-stroke confirm:} Compact lever microswitch.
-    \begin{itemize}[noitemsep]
-      \item Example: Omron SS-5GL2 (lever, NC/NO).
-      \item Placement: mount so the lock pawl flags the lever at the fully engaged position.
-      \item Datasheet: \href{https://omronfs.omron.com/en_US/ecb/products/pdf/en-ss.pdf}{Omron SS series datasheet}
-      \item 3D model (STEP): \href{https://www.traceparts.com/en/product/omron-ss-5gl2?CatalogPath=TRACEPARTS%3ATP01004001001}{TraceParts model}
-    \end{itemize}
-  \item \textbf{Optional safety upgrade (instead of single IR beam):} Safety light curtain.
-    \begin{itemize}[noitemsep]
-      \item Example: SICK deTec4 Core (Type 4).
-      \item Placement: span the doorway opening; wire to safety relay.
-      \item Datasheet: \href{https://cdn.sick.com/media/docs/1/11/811/Data_sheet_deTec4_Core_en_im0052811.pdf}{SICK deTec4 Core datasheet}
-      \item 3D model (STEP): \href{https://www.sick.com/ag/en/detection-and-ranging-solutions/safety-light-curtains/detec4-core/c/g323923}{SICK product page}
-    \end{itemize}
+	\item \textbf{Capacitive proximity sensor (KI5002-02):}
+		\begin{itemize}[noitemsep]
+			\item Model: KI5002-02 (capacitive).\newline Datasheet: \href{../datasheet/KI5002-02_DE-DE.pdf}{KI5002-02\_DE-DE.pdf}
+			\item Use: end-position or presence detection on door/slider elements where non-contact sensing is preferred.
+			\item Placement: mount on frame with adjustable bracket; detect a target plate on the moving member at both ends.
+		\end{itemize}
+	\item \textbf{Subminiature Basic Switch (OMRON SS series):}
+		\begin{itemize}[noitemsep]
+			\item Offers High Reliability and Security — OMRON's best-selling micro switches of a wide variety from 0.1A to 10.1A.\newline Datasheet: \href{../datasheet/en-ss.pdf}{en-ss.pdf}
+			\item Use: mechanical end-of-stroke confirmation for lock pawl engagement or hard-limit detection on carriages.
+			\item Placement: position so the actuator/lever is toggled only at the intended final position; include overtravel allowance per datasheet.
+		\end{itemize}
 \end{itemize}
-\textit{Notes: 24 VDC supply, choose PNP vs NPN to match controller. Use shielded cable for IR/analog lines and provide proper strain relief.}
+	extit{Notes: 24 VDC supply, choose PNP vs NPN to match controller. Use shielded cable for capacitive/analog lines and provide proper strain relief.}
 
 \subsection{(e) System Understanding Emphasis}
 Prior to CAD work, verify: sizing of cylinders vs required stroke (half door travel), force calculations (friction + inertia), rail selection load rating, lock mechanism sequence timing, and sensor mapping to control logic. \textbf{DO NOT} finalize 3D design until force/stroke assumptions are validated.\newline
@@ -192,12 +169,12 @@ Transmission architecture:
 \begin{itemize}[noitemsep]
   \item \textbf{Dual Rack / Single Pinion}: Two parallel racks rigidly fixed to the respective door leaves engage a central pinion mounted on a shaft supported by bearings.
   \item \textbf{Single Door Cylinder Coupling}: The long-stroke cylinder couples to Rack A via a clevis + carriage. Extension drives Rack A forward, rotating the pinion and simultaneously translating Rack B in the opposite direction, yielding symmetric door motion.
-  \item \textbf{Metro Slider Cylinder}: Independently mounted; its extension deploys the metro slider panel (auxiliary cover or secondary barrier) in synchrony with door opening for staged access. Retraction during closing maintains clearance.
+	\item \textbf{Platform Gap Filler (GF1)}: Integrated module/actuator that deploys to bridge the platform/train gap when doors open, and retracts during closing, synchronized with door motion per control logic.
   \item \textbf{Lock Linear Solenoid}: Acts on a pawl/keeper interface. A brief extension withdraws the pawl (unlock pulse). Prompt retraction minimizes exposure and readies the mechanism for re-locking upon verified closed state.
   \item \textbf{Guidance}: Each door leaf rides on a lower rail using four rollers (2 leading, 2 trailing) for load distribution and reduced friction; upper guidance optional for anti-sway.
-  \item \textbf{Sensing}: Reed switches (door cylinder ends), IR beam (obstruction + closed verification), optional micro-switch on lock solenoid.
+	\item \textbf{Sensing}: Reed switches (door cylinder ends), capacitive sensors (obstruction + closed verification), optional micro-switch on lock solenoid.
 \end{itemize}
-Benefits: Reduced actuator count, synchronized motion, clear sensing points, compact upper compartment packaging.
+Benefits: Reduced actuator count, synchronized motion, clear sensing points, compact upper compartment packaging. Gap filler integrates with door timing to improve passenger safety at the platform/train interface.
 	\textbf{Mechanism Figures:}
 \begin{figure}[h]
 	\centering
@@ -213,7 +190,7 @@ Benefits: Reduced actuator count, synchronized motion, clear sensing points, com
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.6\linewidth]{../3D_photos/metro_sliders.png}
-	\caption{Metro slider secondary panel actuation (MSC extended).}
+	\caption{Platform gap filler deployment (GF1 extended).}
 \end{figure}
 \begin{figure}[h]
 	\centering
@@ -317,15 +294,15 @@ No. & Name & Description / Function & Qty & Notes / Datasheet Ref. \\
 \midrule
 \endhead
 1 & Door actuator cylinder (DC) & Drives both doors via dual rack (Extended=Open) & 1 & Stroke ~850 mm (confirm) \\
-2 & Metro slider cylinder (MSC) & Secondary slider deployment (Extended=Open) & 1 & Stroke ~425 mm (confirm) \\
+2 & Platform Gap Filler (GF1) & Deploys to bridge platform gap (Extended=Deployed) & 1 & See \href{../datasheet/GF1-50-2.pdf}{GF1-50-2.pdf} \\
 3 & Lock linear solenoid (LS) & Unlock pulse + relock pawl & 1 & Stroke ~100 mm (confirm) \\
 4 & 5/2 solenoid valve (DC) & Controls door actuator & 1 & Voltage \textit{TODO} \\
-5 & 5/2 solenoid valve (MSC) & Controls metro slider & 1 & Voltage \textit{TODO} \\
+5 & 5/2 solenoid valve (GF1) & Controls gap filler actuator (if pneumatic) & 1 & Voltage \textit{TODO} \\
 6 & 5/2 solenoid valve (LS) & Controls lock actuator / solenoid driver & 1 & Voltage \textit{TODO} \\
 7 & FRL unit & Air preparation & 1 & Model \textit{TODO} \\
 8 & Pressure regulator + gauge & Pressure monitoring & 1 & Range \textit{TODO} \\
 9 & Reed switches (door) & End-position sensing (Open/Closed) & 2 & Door cylinder barrel \\
-10 & IR beam sensor pair & Obstruction + closed path check & 1 set & Range \textit{TODO} \\
+10 & Capacitive proximity sensors (KI5002-02) & Obstruction + closed path check & 1 set & See \href{../datasheet/KI5002-02_DE-DE.pdf}{KI5002-02\_DE-DE.pdf} \\
 11 & Door roller carriages & Support door leaves & 2 & Bearings \textit{TODO} \\
 12 & Door panels (leaves) & Barrier components & 2 & Material \textit{TODO} \\
 13 & Rack assemblies & Linear motion transfer & 2 & Module \textit{TODO} \\
@@ -350,19 +327,19 @@ No. & Name & Description / Function & Qty & Notes / Datasheet Ref. \\
 
 % =============================================================
 \section{Pneumatic Position-Step Diagram}
-Sequence states for three actuators: DC (Door Cylinder), MSC (Metro Slider Cylinder), LS (Lock Solenoid). \textbf{Legend:} EXT = Extended, RET = Retracted.
+Sequence states for three actuators: DC (Door Cylinder), GF1 (Gap Filler), LS (Lock Solenoid). \textbf{Legend:} EXT = Extended, RET = Retracted. Capacitive sensors supervise obstruction during closing.
 \begin{longtable}{>{\raggedright}p{0.09\linewidth} >{\raggedright}p{0.18\linewidth} >{\raggedright}p{0.18\linewidth} >{\raggedright}p{0.18\linewidth} >{\raggedright\arraybackslash}p{0.29\linewidth}}
 	oprule
-Step & DC (Doors) & MSC (Slider) & LS (Lock) & Event / Sensor Condition \\
+Step & DC (Doors) & GF1 (Gap Filler) & LS (Lock) & Event / Sensor Condition \\
 \midrule
 \endhead
-0 Idle Locked & RET (Closed) & RET (Closed) & RET (Locked) & System inactive (Red ON) \\
+0 Idle Locked & RET (Closed) & RET (Retracted) & RET (Locked) & System inactive (Red ON) \\
 1 Unlock Pulse & RET & RET & EXT (Unlock) & Activate pressed (Green ON), LS pulse then returns RET \\
-2 Opening & EXT (Opening) & EXT (Opening) & RET & Open command; reed switches transition; IR ignored \\
-3 Fully Open & EXT (Open) & EXT (Open) & RET & Door open reed ON; dwell timer start \\
-4 Closing & RET (Closing) & RET (Closing) & RET & Close command; IR beam monitored for obstruction \\
-5 Closed / Relock & RET (Closed) & RET (Closed) & RET (Locked) & Door closed reed ON; IR beam clear; lock state confirmed \\
-OB Obstruction & EXT (Re-open) & EXT (Re-open) & RET & IR beam broken during closing triggers immediate reopen \\
+2 Opening & EXT (Opening) & EXT (Deploying) & RET & Open command; position sensors transition; capacitive sensors ignored \\
+3 Fully Open & EXT (Open) & EXT (Deployed) & RET & Door open confirm; dwell timer start \\
+4 Closing & RET (Closing) & RET (Retracting) & RET & Close command; capacitive sensors monitored for obstruction \\
+5 Closed / Relock & RET (Closed) & RET (Retracted) & RET (Locked) & Door closed confirm; capacitive sensors clear; lock state confirmed \\
+OB Obstruction & EXT (Re-open) & EXT (Re-deploy) & RET & Capacitive obstruction during closing triggers immediate reopen \\
 \bottomrule
 \end{longtable}
 \begin{figure}[h]
@@ -375,8 +352,8 @@ OB Obstruction & EXT (Re-open) & EXT (Re-open) & RET & IR beam broken during clo
 	% signal labels on the left
 	\node[left] at (-0.1,5) {A+ (DC extend)};
 	\node[left] at (-0.1,4) {A- (DC retract)};
-	\node[left] at (-0.1,3) {B+ (MSC extend)};
-	\node[left] at (-0.1,2) {B- (MSC retract)};
+	\node[left] at (-0.1,3) {B+ (GF1 extend)};
+	\node[left] at (-0.1,2) {B- (GF1 retract)};
 	\node[left] at (-0.1,1) {C+ (LS unlock)};
 	\node[left] at (-0.1,0) {C- (LS relock)};
 
@@ -385,9 +362,9 @@ OB Obstruction & EXT (Re-open) & EXT (Re-open) & RET & IR beam broken during clo
 	\draw[very thick] (0,5.1) -- (1,5.1) -- (2,5.9) -- (4,5.9) -- (5,5.1) -- (7,5.1);
 	% A- (retract doors during closing: 4->6 window)
 	\draw[very thick] (0,4.1) -- (4,4.1) -- (5,4.9) -- (6,4.9) -- (7,4.1);
-	% B+ (extend metro slider with doors opening: 2->4)
+	% B+ (extend gap filler with doors opening: 2->4)
 	\draw[very thick] (0,3.1) -- (1,3.1) -- (2,3.9) -- (4,3.9) -- (5,3.1) -- (7,3.1);
-	% B- (retract metro slider with doors closing: 4->6)
+	% B- (retract gap filler with doors closing: 4->6)
 	\draw[very thick] (0,2.1) -- (4,2.1) -- (5,2.9) -- (6,2.9) -- (7,2.1);
 	% C+ (unlock pulse around step 1)
 	\draw[very thick] (0,1.1) -- (1,1.1) -- (1.3,1.9) -- (1.6,1.1) -- (7,1.1);
@@ -398,12 +375,12 @@ OB Obstruction & EXT (Re-open) & EXT (Re-open) & RET & IR beam broken during clo
 	\draw[dashed,red] (1.6,-0.2) -- (1.6,6.4) node[above,black] {C\_ext reached};
 	\node[above] at (2,5.9) {A+ enabled};
 \end{tikzpicture}
-\caption{Pneumatic position diagram (normal): A+/B+ during opening, A-/B- during closing. Interlock: A+ rises only after C is fully extended (C\_ext).}
+\caption{Pneumatic position diagram (normal): A+/B+ during opening, A-/B- during closing. Interlock: A+ rises only after C is fully extended (C\_ext). GF1 = gap filler.}
 \end{figure}
 
 	\textbf{NOTE:} The time diagram above mirrors the tabular sequence.
 
-% Obstruction/human-detected variant (IR or proximity sensor)
+% Obstruction/human-detected variant (capacitive detection)
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}[x=1cm,y=0.9cm]
@@ -414,11 +391,11 @@ OB Obstruction & EXT (Re-open) & EXT (Re-open) & RET & IR beam broken during clo
 	% signal labels on the left
 	\node[left] at (-0.1,6) {A+ (DC extend)};
 	\node[left] at (-0.1,5) {A- (DC retract)};
-	\node[left] at (-0.1,4) {B+ (MSC extend)};
-	\node[left] at (-0.1,3) {B- (MSC retract)};
+	\node[left] at (-0.1,4) {B+ (GF1 extend)};
+	\node[left] at (-0.1,3) {B- (GF1 retract)};
 	\node[left] at (-0.1,2) {C+ (LS unlock)};
 	\node[left] at (-0.1,1) {C- (LS relock)};
-	\node[left] at (-0.1,0) {IR/Prox detect};
+	\node[left] at (-0.1,0) {Capacitive detect};
 
 	% helper: low ~ +0.1, high ~ +0.9 within each lane
 	% Choose obstruction time around mid-closing (e.g., x=4.5)
@@ -436,14 +413,14 @@ OB Obstruction & EXT (Re-open) & EXT (Re-open) & RET & IR beam broken during clo
 	\draw[very thick] (0,2.1) -- (1,2.1) -- (1.3,2.9) -- (1.6,2.1) -- (7,2.1);
 	% C- relock is inhibited due to obstruction (remains low)
 	\draw[very thick] (0,1.1) -- (7,1.1);
-	% IR/Prox detection goes high at obstruction time (4.5)
+	% Capacitive detection goes high at obstruction time (4.5)
 	\draw[very thick] (0,0.1) -- (4.5,0.1) -- (4.6,0.9) -- (7,0.9);
 
 	% Event markers
-	\draw[dashed,red] (4.5,-0.4) -- (4.5,7.4) node[above,black] {IR/PROX triggered};
+	\draw[dashed,red] (4.5,-0.4) -- (4.5,7.4) node[above,black] {Capacitive triggered};
 	\draw[dashed,red] (1.6,-0.4) -- (1.6,7.4) node[above,black] {C\_ext reached};
 \end{tikzpicture}
-\caption{Obstruction/human-detected variant: IR/Prox trigger during closing causes immediate re-open (A+/B+ high again) and inhibits relock (C- stays low). A+ remains interlocked to C\_ext for any new opening.}
+\caption{Obstruction/human-detected variant: Capacitive trigger during closing causes immediate re-open (A+/B+ high again) and inhibits relock (C- stays low). A+ remains interlocked to C\_ext for any new opening. GF1 = gap filler.}
 \end{figure}
 
 % =============================================================
@@ -455,7 +432,7 @@ OB Obstruction & EXT (Re-open) & EXT (Re-open) & RET & IR beam broken during clo
 	\item DFM report + 2D drawings -- \textit{Framework ready; drawings pending}
 	\item DFA report with exploded views -- \textit{Framework ready; views pending}
 	\item Pneumatic position-step diagram -- \textit{Updated table; graphic pending}
-	\item Sensor + safety logic (IR + reed) -- \textit{Documented}
+	\item Sensor + safety logic (capacitive + reed) -- \textit{Documented}
 	\item Mechanism and lock figures -- \textit{Inserted}
 	\item SolidWorks 3D design files -- \textit{To include in ZIP upon completion}
 \end{itemize}
