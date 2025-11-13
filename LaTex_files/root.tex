@@ -14,6 +14,8 @@
 \usepackage{enumitem}
 \usepackage{amsmath,amssymb}
 \usepackage{tikz}
+\usepackage{tikz}
+\usepackage{tikz}
 \setlength{\parskip}{0.6em}
 \setlength{\parindent}{0pt}
 \hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
@@ -46,11 +48,11 @@
 \end{center}
 
 		extbf{3D Views:} Representative render integrated below.
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=0.9\linewidth]{../3D_photos/coverpage.png}
-		\caption{Overall assembly isometric view.}
-	\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\linewidth]{../3D_photos/coverpage.png}
+  \caption{Overall assembly isometric view.}
+\end{figure}
 	ableofcontents
 \newpage
 
@@ -338,11 +340,58 @@ OB Obstruction & EXT (Re-open) & EXT (Re-open) & RET & IR beam broken during clo
 	\draw[very thick] (0,1.1) -- (1,1.1) -- (1.3,1.9) -- (1.6,1.1) -- (7,1.1);
 	% C- (relock confirm pulse near step 5)
 	\draw[very thick] (0,0.1) -- (5,0.1) -- (5.3,0.9) -- (5.6,0.1) -- (7,0.1);
+
+	% Interlock annotation: A+ only after C reaches max extension
+	\draw[dashed,red] (1.6,-0.2) -- (1.6,6.4) node[above,black] {C\_ext reached};
+	\node[above] at (2,5.9) {A+ enabled};
 \end{tikzpicture}
-\caption{Pneumatic position diagram ("A+/A-/B+/B-/C+/C-"): valve coil energization across steps.}
+\caption{Pneumatic position diagram (normal): A+/B+ during opening, A-/B- during closing. Interlock: A+ rises only after C is fully extended (C\_ext).}
 \end{figure}
 
-	extbf{NOTE:} The time diagram above mirrors the tabular sequence. An obstruction branch can be shown as a second overlay (OB: immediate return to A+/B+ high and inhibit C-).
+	extbf{NOTE:} The time diagram above mirrors the tabular sequence.
+
+% Obstruction/human-detected variant (IR or proximity sensor)
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[x=1cm,y=0.9cm]
+	% grid and guides
+	\draw[gray!30] (0,0) grid[xstep=1,ystep=1] (7,7);
+	% step labels
+	\foreach \s in {1,...,7} \node[gray!70] at (\s-0.5,7.25) {\s};
+	% signal labels on the left
+	\node[left] at (-0.1,6) {A+ (DC extend)};
+	\node[left] at (-0.1,5) {A- (DC retract)};
+	\node[left] at (-0.1,4) {B+ (MSC extend)};
+	\node[left] at (-0.1,3) {B- (MSC retract)};
+	\node[left] at (-0.1,2) {C+ (LS unlock)};
+	\node[left] at (-0.1,1) {C- (LS relock)};
+	\node[left] at (-0.1,0) {IR/Prox detect};
+
+	% helper: low ~ +0.1, high ~ +0.9 within each lane
+	% Choose obstruction time around mid-closing (e.g., x=4.5)
+	% A+ normal open (2->4), then obstruction triggers immediate re-open (4.5->6)
+	\draw[very thick] (0,6.1) -- (1,6.1) -- (2,6.9) -- (4,6.9)
+					  -- (4.5,6.1) -- (4.5,6.1) -- (4.6,6.9) -- (6,6.9) -- (7,6.1);
+	% A- starts closing at 4 but is aborted at 4.5
+	\draw[very thick] (0,5.1) -- (4,5.1) -- (4.2,5.9) -- (4.5,5.9) -- (4.6,5.1) -- (7,5.1);
+	% B+ normal open (2->4), then re-open after obstruction (4.5->6)
+	\draw[very thick] (0,4.1) -- (1,4.1) -- (2,4.9) -- (4,4.9)
+					  -- (4.5,4.1) -- (4.6,4.9) -- (6,4.9) -- (7,4.1);
+	% B- starts at 4 but is aborted at 4.5
+	\draw[very thick] (0,3.1) -- (4,3.1) -- (4.2,3.9) -- (4.5,3.9) -- (4.6,3.1) -- (7,3.1);
+	% C+ as before (unlock pulse around 1)
+	\draw[very thick] (0,2.1) -- (1,2.1) -- (1.3,2.9) -- (1.6,2.1) -- (7,2.1);
+	% C- relock is inhibited due to obstruction (remains low)
+	\draw[very thick] (0,1.1) -- (7,1.1);
+	% IR/Prox detection goes high at obstruction time (4.5)
+	\draw[very thick] (0,0.1) -- (4.5,0.1) -- (4.6,0.9) -- (7,0.9);
+
+	% Event markers
+	\draw[dashed,red] (4.5,-0.4) -- (4.5,7.4) node[above,black] {IR/PROX triggered};
+	\draw[dashed,red] (1.6,-0.4) -- (1.6,7.4) node[above,black] {C\_ext reached};
+\end{tikzpicture}
+\caption{Obstruction/human-detected variant: IR/Prox trigger during closing causes immediate re-open (A+/B+ high again) and inhibits relock (C- stays low). A+ remains interlocked to C\_ext for any new opening.}
+\end{figure}
 
 % =============================================================
 \section{Milestone Deliverables Checklist}
