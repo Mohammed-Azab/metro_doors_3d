@@ -14,46 +14,48 @@
 \usepackage{enumitem}
 \usepackage{amsmath,amssymb}
 \usepackage{tikz}
-\usepackage{tikz}
-\usepackage{tikz}
 \setlength{\parskip}{0.6em}
 \setlength{\parindent}{0pt}
 \hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
 
+% Helper macro for one-line custom font sizing (example usage: \BigLine{Text})
+\newcommand{\BigLine}[1]{\begingroup\fontsize{20pt}{24pt}\selectfont #1\par\endgroup}
 
 \title{Metro Sliding Doors Project}
 \author{Student Name: \textit{Mohammed Azab} \\ Student ID: \textit{13001581}\\ Group: \textit{T2}}
 
 \begin{document}
-% University Logo (top-left)
-\begin{flushleft}
-% Adjust height as needed; replace path if logo file differs
-\includegraphics[height=1.8cm]{media/giu.png}% University Logo Placeholder
-\end{flushleft}
-\vspace{-1.2em} % tighten space before title
-
-\maketitle
-\section*{Cover Page}
-	\textbf{University:} German International University\\
-	\textbf{Course:} Mechatronics Lab (MCTR704)\\
-	\textbf{Semester:} Berlin Winter 2025\\
-	\textbf{Project Title:} Metro Sliding Doors\\
-	\textbf{Project No.:} [ 9 ]\\
-	\textbf{Instructor/Supervisor:} \textit{TODO}\\
+% Cover header: logo + title + author aligned on one line
+\begin{minipage}[c]{0.60\textwidth}
+	\includegraphics[width=\linewidth]{media/giu.png}
+\end{minipage}\hfill
+\vspace{0.75em}
+\hrule
 \vspace{1em}
-	\textbf{NOTE:} Insert logo / project representative photo here.\\
+\section*{}
+\begin{center}
+  % Example: enlarged single line via macro (or use {\Huge Your Text})
+  \BigLine{\textbf{Metro Sliding Doors Project}}
+  \vspace{0.3em}
+  {\large Student Name: \textit{Mohammed Azab}\\ Student ID: \textit{13001581}\\ Group: \textit{T2}\par}
+  \textbf{University:} German International University\\
+  \textbf{Course:} Mechatronics Lab (MCTR704)\\
+  \textbf{Project No.:} [ 9 ]\\
+  \textbf{Instructor/Supervisor:} \textit{MSC. Mohammed Shaaban}\\
+\end{center}
+
 \begin{center}
 \includegraphics[width=0.9\linewidth]{../3D_photos/coverpage.png}\\
 \small Overall assembly render
 \end{center}
 
-		extbf{3D Views:} Representative render integrated below.
+			\textbf{3D Views:} Representative render integrated below.
 \begin{figure}[h]
-  \centering
-  \includegraphics[width=0.9\linewidth]{../3D_photos/coverpage.png}
+	\centering
+  \includegraphics[width=0.9\linewidth]{../3D_photos/All.png}
   \caption{Overall assembly isometric view.}
 \end{figure}
-	ableofcontents
+
 \newpage
 
 % =============================================================
@@ -104,7 +106,6 @@ High-level sequence (mapping: DC Extended = Doors Open, MSC Extended = Slider Op
 \begin{enumerate}[label=Step \arabic*:,leftmargin=2.2cm]
 	\item \textbf{Idle Locked}: System inactive. DC Retracted (doors closed), MSC Retracted (slider closed), LS Retracted (lock engaged). Red ON.
 	\item \textbf{Unlock Pulse}: Activation pressed. LS Extends briefly to withdraw lock pawl; Green ON. LS then retracts to standby (pawl held clear mechanically).
-	\item \textbf{Opening}: Command Open. DC Extends driving racks; MSC Extends simultaneously. IR beam monitored but ignored for opening. Reed Open switch triggers at end-of-stroke.
 	\item \textbf{Dwell Open}: DC Extended, MSC Extended. Timer or passenger flow condition decides closing initiation.
 	\item \textbf{Closing}: Close command (Master). DC Retracts; MSC Retracts. IR beam must remain clear. If IR obstruction occurs, sequence aborts and system returns to Opening (auto-reopen).
 	\item \textbf{Closed + Relock}: Reed Closed confirms stroke end. IR beam \emph{clear} condition verified. LS may perform a short confirm pulse (optional) or remain retracted if passive latch design. Red or Green status per armed state policy.
@@ -224,7 +225,7 @@ DFM ensures each custom part is feasible with available processes. Provide per-p
 	\item Rails: purchased linear guide assemblies (COTS).\end{itemize}
 	extbf{DFM Part Table (Preliminary)}
 \begin{longtable}{>{\raggedright}p{0.10\linewidth} >{\raggedright}p{0.25\linewidth} >{\raggedright}p{0.23\linewidth} >{\raggedright}p{0.22\linewidth} >{\raggedright\arraybackslash}p{0.15\linewidth}}
-	oprule
+				oprule
 Part & Name & Material / Specs (Draft) & Process & Drawing Ref. \\
 \midrule
 \endhead
